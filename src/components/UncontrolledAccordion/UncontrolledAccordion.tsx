@@ -1,23 +1,15 @@
 import React, {useReducer} from 'react';
+import {reducer} from "./Reducer";
 
 
 type UncontrolledAccordionPropsType = {
     titleValue: string
 }
-type ActionType = {
-    type: string
-}
-const reducer = (state: boolean, action: ActionType) => {
-    if (action.type === "TOGGLE-COLLAPSED") {
-        return !state
-    }
-    return state
-}
 
 const UncontrolledAccordion = (props: UncontrolledAccordionPropsType) => {
 
     // let [collapsed, setCollapsed] = useState<boolean>(false)
-    let [collapsed, dispatch] = useReducer(reducer, false)
+    let [state, dispatch] = useReducer(reducer, {collapsed: true})
     console.log("Accordion rendering");
     return (
         <div>
@@ -25,7 +17,7 @@ const UncontrolledAccordion = (props: UncontrolledAccordionPropsType) => {
                 dispatch({type: "TOGGLE-COLLAPSED"})
             }}/>
             {/*{!collapsed && <AccordionBody/>}*/}
-            {!collapsed && <AccordionBody/>}
+            {!state.collapsed && <AccordionBody/>}
         </div>
     );
 }
